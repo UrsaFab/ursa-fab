@@ -1,26 +1,29 @@
 <header id="siteHeader" class="site-header">
-
-  /
-
-    <img
-      src="/logocrop.jpg"
-      altder-controls">
-
-    <a
-      href="https://instagram.com/ursa.fab"
-      target="_blank"
-      aria-label="Instagram"
-    >
-
-      <img
-        src="/gram.png"
-        alt="Instagram"
-        class="menu-button"
-      aria-label="Menu"
-    >
-      ☰
-    </button>
-
+  <div class="header-brand">
+    <a href="/" aria-label="Ursa fab. home">
+      <img class="header-logo" src="/logocrop.jpg" alt="Ursa fab." />
+    </a>
   </div>
 
+  <div class="header-actions">
+    <a
+      class="instagram-link"
+      href="https://instagram.com/ursa.fab"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Ursa fab. on Instagram"
+    >
+      <img class="instagram-icon" src="/gram.png" alt="" />
+    </a>
+
+    <button
+      id="menuButton"
+      class="menu-button"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
 </header>
