@@ -5,96 +5,70 @@ const { title = "Ursa fab." } = Astro.props;
 ---
 
 <!doctype html>
-
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Bespoke fabrication for creative production environments and contemporary interiors."
+    />
 
-<head>
+    <title>{title}</title>
 
-<meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<meta
-  name="description"
-  content="Bespoke fabrication for creative production environments and contemporary interiors."
-/>
+  <body>
+    <slot />
 
-<title>{title}</title>
+    <script>
+      function initialiseMenu() {
+        const menuButton = document.getElementById("menuButton");
+        const siteMenu = document.getElementById("siteMenu");
+        const menuSymbol = menuButton?.querySelector("span");
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+        if (!menuButton || !siteMenu) {
+          return;
+        }
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        function setMenuState(isOpen) {
+          siteMenu.classList.toggle("open", isOpen);
+          siteMenu.setAttribute("aria-hidden", String(!isOpen));
+          menuButton.setAttribute("aria-expanded", String(isOpen));
+          menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap"
-  rel="stylesheet"
-/>
+          if (menuSymbol) {
+            menuSymbol.textContent = isOpen ? "×" : "☰";
+          }
+        }
 
-</head>
-
-<body>
-
-<slot />
-
-<script>
-  function initialiseMenu() {
-    const menuButton = document.getElementById("menuButton");
-    const siteMenu = document.getElementById("siteMenu");
-    const menuSymbol = menuButton?.querySelector("span");
-
-    if (!menuButton || !siteMenu) {
-      return;
-    }
-
-    function setMenuState(isOpen: boolean) {
-      siteMenu.classList.toggle("open", isOpen);
-      siteMenu.setAttribute(
-        "aria-hidden",
-        String(!isOpen)
-      );
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-      menuButton.setAttribute(
-        "aria-label",
-        isOpen ? "Close menu" : "Open menu"
-      );
-
-      if (menuSymbol) {
-        menuSymbol.textContent = isOpen ? "×" : "☰";
-      }
-    }
-
-    menuButton.addEventListener("click", () => {
-      const isOpen =
-        siteMenu.classList.contains("open");
-
-      setMenuState(!isOpen);
-    });
-
-    siteMenu
-      .querySelectorAll("a")
-      .forEach((link) => {
-        link.addEventListener("click", () => {
-          setMenuState(false);
+        menuButton.addEventListener("click", () => {
+          setMenuState(!siteMenu.classList.contains("open"));
         });
-      });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
+        siteMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setMenuState(false));
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            setMenuState(false);
+          }
+        });
+
         setMenuState(false);
       }
-    });
 
-    setMenuState(false);
-  }
-
-  initialiseMenu();
-</script>
-
-</body>
-
+      initialiseMenu();
+    </script>
+  </body>
 </html>
