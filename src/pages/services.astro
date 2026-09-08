@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+---
+
+<Layout title="Services | Ursa fab.">
+  <Header alwaysVisible />
+
+  <main class="services-page">
+    <header class="services-intro">
+      <p class="content-label">services</p>
+      <h1>Bespoke fabrication shaped around the way you work and live.</h1>
+    </header>
+
+    <section class="services-list" aria-label="Ursa fab. services">
+      <article class="service-item">
+        <p class="service-number">01</p>
+        <div>
+          <h2>Production equipment</h2>
+          <p>
+            Studio carts, mobile workstations, storage systems and purpose-built
+            equipment for film, television and creative production environments.
+          </p>
+        </div>
+      </article>
+
+      <article class="service-item">
+        <p class="service-number">02</p>
+        <div>
+          <h2>Contemporary interiors</h2>
+          <p>
+            Bespoke kitchens, shelving, furniture and fitted interior elements
+            developed for individual spaces and practical everyday use.
+          </p>
+        </div>
+      </article>
+
+      <article class="service-item">
+        <p class="service-number">03</p>
+        <div>
+          <h2>Custom fabrication</h2>
+          <p>
+            One-off commissions combining metalwork, timber, careful detailing
+            and considered construction from concept through to completion.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+</Layout>

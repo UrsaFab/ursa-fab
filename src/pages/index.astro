@@ -50,11 +50,38 @@ import GalleryCard from "../components/GalleryCard.astro";
 
     function updateHeader() {
       const showHeader = window.scrollY > 100;
+
       siteHeader?.classList.toggle("visible", showHeader);
       heroLogo?.classList.toggle("fade", showHeader);
     }
 
     updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    window.addEventListener("scroll", updateHeader, {
+      passive: true
+    });
+
+    const galleryCards =
+      document.querySelectorAll(".gallery-card");
+
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle(
+            "active",
+            entry.isIntersecting
+          );
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0
+      }
+    );
+
+    galleryCards.forEach((card) => {
+      cardObserver.observe(card);
+    });
   </script>
 </Layout>

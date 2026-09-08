@@ -1,4 +1,14 @@
-<header id="siteHeader" class="site-header">
+---
+const { alwaysVisible = false } = Astro.props;
+---
+
+<header
+  id="siteHeader"
+  class:list={[
+    "site-header",
+    { "always-visible": alwaysVisible }
+  ]}
+>
   <div class="header-brand">
     <a href="/" aria-label="Ursa fab. home">
       <img class="header-logo" src="/logocrop.jpg" alt="Ursa fab." />
@@ -27,3 +37,8 @@
     </button>
   </div>
 </header>
+<nav id="siteMenu" class="site-menu" aria-hidden="true">
+  <a href="/about/">about</a>
+  <a href="/portfolio/">portfolio</a>
+  <a href="/services/">services</a>
+</nav>

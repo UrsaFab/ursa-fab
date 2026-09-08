@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+---
+
+<Layout title="Portfolio | Ursa fab.">
+  <Header alwaysVisible />
+
+  <main class="portfolio-page">
+    <header class="portfolio-intro">
+      <p class="content-label">portfolio</p>
+      <h1>Selected fabrication for production and interior environments.</h1>
+    </header>
+
+    <section class="portfolio-grid" aria-label="Selected Ursa fab. work">
+      <figure class="portfolio-item">
+        <img src="/portfolio.jpeg" alt="Custom studio cart fabricated by Ursa fab." />
+        <figcaption>
+          <span>Studio cart</span>
+          <span>Creative production</span>
+        </figcaption>
+      </figure>
+
+      <figure class="portfolio-item">
+        <div class="portfolio-placeholder" aria-label="Project image placeholder"></div>
+        <figcaption>
+          <span>Project title</span>
+          <span>Contemporary interiors</span>
+        </figcaption>
+      </figure>
+
+      <figure class="portfolio-item">
+        <div class="portfolio-placeholder" aria-label="Project image placeholder"></div>
+        <figcaption>
+          <span>Project title</span>
+          <span>Custom fabrication</span>
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+</Layout>

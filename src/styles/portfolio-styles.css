@@ -1,0 +1,117 @@
+/* PORTFOLIO PAGE */
+
+.portfolio-page {
+  width: min(1200px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 160px 0 96px;
+}
+
+.portfolio-intro {
+  position: static;
+  width: min(860px, 100%);
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.portfolio-intro h1 {
+  margin-top: 20px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 7vw, 82px);
+  font-weight: 300;
+  line-height: 0.98;
+}
+
+.portfolio-grid {
+  margin-top: 88px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px 32px;
+}
+
+.portfolio-item {
+  margin: 0;
+}
+
+.portfolio-item-wide {
+  grid-column: 1 / -1;
+  width: min(900px, 100%);
+  justify-self: center;
+}
+
+.portfolio-item img,
+.portfolio-placeholder {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #111;
+}
+
+.portfolio-item img {
+  animation: portfolio-image-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.portfolio-placeholder {
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.portfolio-item figcaption {
+  margin-top: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--grey);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.portfolio-item figcaption span:first-child {
+  color: var(--white);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+@keyframes portfolio-image-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-page {
+    width: calc(100% - 32px);
+    padding: 112px 0 72px;
+  }
+
+  .portfolio-grid {
+    margin-top: 56px;
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .portfolio-item-wide {
+    grid-column: auto;
+  }
+
+  .portfolio-item figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-item img {
+    animation: none;
+  }
+}
