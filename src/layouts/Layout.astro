@@ -1,0 +1,41 @@
+---
+import "../styles/global.css";
+
+const { title = "Ursa fab." } = Astro.props;
+---
+
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta
+  name="description"
+  content="Bespoke fabrication for creative production environments and contemporary interiors."
+/>
+
+<title>{title}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap"
+  rel="stylesheet"
+/>
+
+</head>
+
+<body>
+
+<slot />
+
+</body>
+
+</html>

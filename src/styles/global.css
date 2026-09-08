@@ -1,0 +1,211 @@
+:root{
+  --black:#000;
+  --white:#fff;
+  --grey:#cfcfcf;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+/* HEADER */
+
+.site-header{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:72px;
+
+  background:#000;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:0 1.5rem;
+
+  z-index:1000;
+
+  transform:translateY(-100%);
+  opacity:0;
+
+  transition:
+    transform .6s ease,
+    opacity .6s ease;
+}
+
+.site-header.visible{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.header-logo{
+  width:180px;
+}
+
+.header-controls{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+
+.instagram-icon{
+  width:26px;
+  height:26px;
+}
+
+.menu-button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:2rem;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:6rem 2rem 2rem;
+}
+
+.hero-logo{
+
+  width:45vw;
+  max-width:650px;
+
+  transition:
+    opacity .6s ease;
+}
+
+.hero-logo.fade{
+  opacity:0;
+}
+
+.hero-copy{
+
+  margin-top:1rem;
+
+  max-width:700px;
+
+  text-align:center;
+}
+
+.hero-copy p{
+
+  color:var(--grey);
+
+  line-height:1.8;
+
+  font-size:1.2rem;
+}
+
+/* GALLERY */
+
+.gallery{
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:4rem;
+
+  padding:2rem 0 6rem;
+}
+
+.gallery-card{
+
+  position:relative;
+
+  width:900px;
+  max-width:85vw;
+}
+
+.gallery-card img{
+
+  width:100%;
+  height:auto;
+}
+
+.gallery-overlay{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(2rem,6vw,4rem);
+
+  background:rgba(0,0,0,.15);
+
+  transition:.6s ease;
+}
+
+.gallery-card.active .gallery-overlay{
+  background:rgba(0,0,0,.65);
+}
+
+footer{
+
+  text-align:center;
+
+  line-height:2;
+
+  padding:6rem 2rem;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .hero-logo{
+    width:75vw;
+  }
+
+  .gallery-card{
+    width:92vw;
+  }
+
+  .header-logo{
+    width:120px;
+  }
+}
