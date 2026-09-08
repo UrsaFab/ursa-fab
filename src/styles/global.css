@@ -1,234 +1,73 @@
-:root{
-  --black:#000;
-  --white:#fff;
-  --grey:#cfcfcf;
+:root {
+  --black: #000;
+  --white: #fff;
+  --grey: #cfcfcf;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html{
-  scroll-behavior:smooth;
+html {
+  scroll-behavior: smooth;
 }
 
-body{
-  background:var(--black);
-  color:var(--white);
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--black);
+  color: var(--white);
+  font-family: "Inter", Arial, sans-serif;
 }
 
-a{
-  text-decoration:none;
-  color:inherit;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-img{
-  display:block;
-  max-width:100%;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-/* HEADER */
-
-.site-header{
-  position:fixed;
-  top:0;
-  left:0;
-
-  width:100%;
-  height:72px;
-
-  background:#000;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  padding:0 1.5rem;
-
-  z-index:1000;
-
-  transform:translateY(-100%);
-  opacity:0;
-
-  transition:
-    transform .6s ease,
-    opacity .6s ease;
-}
-
-.site-header.visible{
-  transform:translateY(0);
-  opacity:1;
-}
-
-.header-logo{
-  width:180px;
-}
-
-.header-controls{
-  display:flex;
-  align-items:center;
-  gap:1rem;
-}
-
-.instagram-icon{
-  width:26px;
-  height:26px;
-}
-
-.menu-button{
-  background:none;
-  border:none;
-  color:white;
-  font-size:2rem;
-  cursor:pointer;
-}
-
-/* HERO */
-
-.hero{
-
-  min-height:100vh;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-
-  padding:6rem 2rem 2rem;
-}
-
-.hero-logo{
-
-  width:45vw;
-  max-width:650px;
-
-  transition:
-    opacity .6s ease;
-}
-
-.hero-logo.fade{
-  opacity:0;
-}
-
-.hero-copy{
-
-  margin-top:1rem;
-
-  max-width:700px;
-
-  text-align:center;
-}
-
-.hero-copy p{
-
-  color:var(--grey);
-
-  line-height:1.8;
-
-  font-size:1.2rem;
-}
-
-/* GALLERY */
-
-.gallery{
-
-  display:flex;
-  flex-direction:column;
-
-  align-items:center;
-
-  gap:4rem;
-
-  padding:2rem 0 6rem;
-}
-
-.gallery-card{
-
-  position:relative;
-
-  width:900px;
-  max-width:85vw;
-}
-
-.gallery-card img{
-
-  width:100%;
-  height:auto;
-}
-
-.gallery-overlay{
-
-  position:absolute;
-
-  inset:0;
-
-  display:flex;
-
-  justify-content:center;
-  align-items:center;
-
-  font-family:'Cormorant Garamond',serif;
-
-  font-size:clamp(2rem,6vw,4rem);
-
-  background:rgba(0,0,0,.15);
-
-  transition:.6s ease;
-}
-
-.gallery-card.active .gallery-overlay{
-  background:rgba(0,0,0,.65);
-}
-
-footer{
-
-  text-align:center;
-
-  line-height:2;
-
-  padding:6rem 2rem;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-  .hero-logo{
-    width:75vw;
-  }
-
-  .gallery-card{
-    width:92vw;
-  }
-
-  .header-logo{
-    width:120px;
-  }
-}
+/* Fixed header: hamburger remains visible at all times. */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-
   width: 100%;
-  height: 72px;
-  padding: 0 24px;
-
+  min-height: 112px;
+  padding: 8px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  pointer-events: none;
+  transition: background-color 700ms ease;
+}
 
-  background: #000;
+.site-header.visible {
+  background: var(--black);
 }
 
 .header-brand {
   display: flex;
   align-items: center;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  pointer-events: none;
+  transition: opacity 700ms ease, visibility 700ms ease, transform 700ms ease;
+}
+
+.site-header.visible .header-brand {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .header-brand a {
@@ -237,93 +76,10 @@ footer{
 
 .header-logo {
   display: block;
-  width: 180px;
-  height: 52px;
+  width: 360px;
+  height: 96px;
   object-fit: contain;
   object-position: left center;
-}
-
-.header-actions {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 18px;
-}
-
-.instagram-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.instagram-icon {
-  display: block;
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
-
-.menu-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 4px;
-
-  border: 0;
-  background: transparent;
-  color: #fff;
-
-  font: inherit;
-  font-size: 30px;
-  line-height: 1;
-
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .site-header {
-    height: 64px;
-    padding: 0 16px;
-  }
-
-  .header-logo {
-    width: 125px;
-    height: 44px;
-  }
-
-  .header-actions {
-    gap: 14px;
-  }
-}
-/* Static header visibility reset */
-
-.site-header {
-  display: flex;
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-}
-
-.header-logo {
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-}
-
-.instagram-link {
-  display: inline-flex;
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-}
-
-.instagram-icon {
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  transform: none;
 }
 
 .header-actions {
@@ -331,4 +87,232 @@ footer{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.instagram-link {
+  display: inline-flex;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  pointer-events: none;
+  transition: opacity 700ms ease, visibility 700ms ease, transform 700ms ease;
+}
+
+.site-header.visible .instagram-link {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.instagram-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  max-width: 28px;
+  object-fit: contain;
+}
+
+.menu-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero {
+  min-height: 100vh;
+  padding: 48px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-logo {
+  display: block;
+  width: 45vw;
+  max-width: 650px;
+  height: auto;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.hero-logo.fade {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.hero-copy {
+  width: min(700px, 100%);
+  margin-top: 8px;
+  text-align: center;
+}
+
+.hero-copy p {
+  color: var(--grey);
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.gallery {
+  width: 100%;
+  padding: 32px 32px 96px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+}
+
+.gallery-card {
+  position: relative;
+  flex: 0 1 450px;
+  width: 450px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.gallery-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: opacity 400ms ease;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--white);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 4vw, 48px);
+  letter-spacing: 0.08em;
+  transition: background-color 600ms ease, opacity 600ms ease;
+}
+
+.gallery-card.active .gallery-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+footer {
+  padding: 96px 32px;
+  text-align: center;
+  line-height: 2;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+@media (min-width: 1024px) {
+  .gallery-overlay {
+    opacity: 0;
+  }
+
+  .gallery-card:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .gallery-card:hover img {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    min-height: 84px;
+    padding: 6px 16px;
+  }
+
+  .header-logo {
+    width: 240px;
+    height: 72px;
+  }
+
+  .header-actions {
+    gap: 14px;
+  }
+
+  .instagram-link,
+  .instagram-icon {
+    width: 25px;
+    height: 25px;
+    max-width: 25px;
+  }
+
+  .instagram-link {
+    flex-basis: 25px;
+  }
+
+  .menu-button {
+    font-size: 28px;
+  }
+
+  .hero {
+    padding: 36px 20px 24px;
+  }
+
+  .hero-logo {
+    width: 75vw;
+    max-width: 500px;
+  }
+
+  .gallery {
+    padding: 24px 16px 72px;
+    gap: 32px;
+  }
+
+  .gallery-card {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-header,
+  .header-brand,
+  .instagram-link,
+  .hero-logo,
+  .gallery-overlay,
+  .gallery-card img {
+    transition: none;
+  }
 }

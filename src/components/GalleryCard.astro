@@ -1,13 +1,17 @@
 ---
-const { image, title, href } = Astro.props;
+interface Props {
+  image: string;
+  title: string;
+  href: string;
+  alt: string;
+}
+
+const { image, title, href, alt } = Astro.props;
 ---
 
-{href}
-
-  <img src={image} alts="gallery-overlay">
-
-    {title}
-
+<a class="gallery-card" href={href}>
+  <img src={image} alt={alt} loading="lazy" />
+  <div class="gallery-overlay">
+    <span>{title}</span>
   </div>
-
 </a>

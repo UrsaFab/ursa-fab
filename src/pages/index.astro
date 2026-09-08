@@ -2,9 +2,59 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
+import GalleryCard from "../components/GalleryCard.astro";
 ---
 
 <Layout title="Ursa fab.">
   <Header />
   <Hero />
+
+  <main>
+    <section class="gallery" aria-label="Explore Ursa fab.">
+      <GalleryCard
+        image="/portfolio.jpeg"
+        title="PORTFOLIO"
+        href="/portfolio/"
+        alt="Selected Ursa fab. work"
+      />
+
+      <GalleryCard
+        image="/services.jpeg"
+        title="SERVICES"
+        href="/services/"
+        alt="Ursa fab. fabrication process"
+      />
+
+      <GalleryCard
+        image="/about.jpeg"
+        title="ABOUT"
+        href="/about/"
+        alt="Ursa fab. workshop"
+      />
+    </section>
+  </main>
+
+  <footer>
+    <p>Norwich, UK</p>
+    <p><a href="mailto:info@ursafab.co.uk">info@ursafab.co.uk</a></p>
+    <p>
+      <a href="https://instagram.com/ursa.fab" target="_blank" rel="noopener noreferrer">
+        @ursa.fab
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    const siteHeader = document.getElementById("siteHeader");
+    const heroLogo = document.getElementById("heroLogo");
+
+    function updateHeader() {
+      const showHeader = window.scrollY > 100;
+      siteHeader?.classList.toggle("visible", showHeader);
+      heroLogo?.classList.toggle("fade", showHeader);
+    }
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+  </script>
 </Layout>
