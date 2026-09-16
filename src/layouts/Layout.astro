@@ -1,7 +1,14 @@
 ---
 import "../styles/global.css";
 
-const { title = "Ursa fab." } = Astro.props;
+const {
+  title = "Ursa fab. | Bespoke fabrication in Norwich",
+  description = "Bespoke studio carts, production equipment and contemporary interiors, designed and built by Ursa fab. in Norwich, UK.",
+  image = "/logo.jpeg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -15,6 +22,42 @@ const { title = "Ursa fab." } = Astro.props;
     />
 
     <title>{title}</title>
+
+    <meta name="description" content={description} />
+
+    {canonicalURL}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ursa fab." />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Ursa fab.",
+        url: "https://ursafab.co.uk",
+        email: "info@ursafab.co.uk",
+        areaServed: "United Kingdom",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Norwich",
+          addressCountry: "GB"
+        },
+        sameAs: [
+          "https://instagram.com/ursa.fab"
+        ]
+      })}
+    />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
