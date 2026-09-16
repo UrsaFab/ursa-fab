@@ -16,16 +16,10 @@ const socialImageURL = new URL(image, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Bespoke fabrication for creative production environments and contemporary interiors."
-    />
-
+    
     <title>{title}</title>
-
     <meta name="description" content={description} />
-
-    {canonicalURL}
+    <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ursa fab." />
@@ -40,24 +34,24 @@ const socialImageURL = new URL(image, Astro.site);
     <meta name="twitter:image" content={socialImageURL} />
 
     <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: "Ursa fab.",
-        url: "https://ursafab.co.uk",
-        email: "info@ursafab.co.uk",
-        areaServed: "United Kingdom",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Norwich",
-          addressCountry: "GB"
-        },
-        sameAs: [
-          "https://instagram.com/ursa.fab"
-        ]
-      })}
-    />
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "Ursa fab.",
+      url: "https://ursafab.co.uk",
+      email: "info@ursafab.co.uk",
+      areaServed: "United Kingdom",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Norwich",
+        addressCountry: "GB"
+      },
+      sameAs: [
+        "https://instagram.com/ursa.fab"
+      ]
+    })}
+  />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
