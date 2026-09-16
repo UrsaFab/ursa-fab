@@ -504,7 +504,7 @@ body.menu-open {
   margin-bottom: 32px;
 
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(38px, 5vw, 64px);
+  font-size: clamp(30px, 5vw, 70px);
   font-weight: 300;
   line-height: 1;
 }
@@ -568,7 +568,7 @@ body.menu-open {
 .services-intro h1 {
   margin-top: 20px;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(42px, 7vw, 82px);
+  font-size: clamp(30px, 7vw, 70px);
   font-weight: 300;
   line-height: 0.98;
 }
@@ -651,7 +651,7 @@ body.menu-open {
 .portfolio-intro h1 {
   margin-top: 20px;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(42px, 7vw, 82px);
+  font-size: clamp(30px, 7vw, 70px);
   font-weight: 300;
   line-height: 0.98;
 }
