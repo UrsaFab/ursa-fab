@@ -435,14 +435,14 @@ body.menu-open {
   padding: 144px 0 96px;
 
   display: grid;
-  grid-template-columns: minmax(280px, 450px) minmax(320px, 1fr);
+  grid-template-columns: minmax(280px, 420px) minmax(320px, 1fr);
   align-items: start;
   gap: 64px;
 }
 
 .content-media {
   width: 100%;
-  max-width: 450px;
+  max-width: 420px;
 }
 
 .content-hero {
@@ -483,9 +483,20 @@ body.menu-open {
   text-transform: lowercase;
 }
 
+.content-label-about {
+  margin-top: 14px;
+
+  color: var(--grey);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 20px;
+  line-height: 1;
+  text-align: left;
+}
+
 .content-copy {
   width: 100%;
-  max-width: 600px;
+  max-width: 620px;
   margin: 0;
 }
 
