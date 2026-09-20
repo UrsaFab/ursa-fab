@@ -7,4 +7,4 @@ images:
   - /uploads/pxl_20251113_164510041.jpg
   - /uploads/ursa.fab2026_09_20_17_25_14902f164c-a7a5-4fd7-a97f-016f220a5a6c.jpg
 ---
-Made in collaboration with K.Harper Signs, bent and welded from 10mm steel round bar, joined with stainless wire, then hand-printed by Kieran.
+Made in collaboration with K.Harper Signs, bent and welded from 10mm steel round bar, joined with stainless wire, then hand-painted by Kieran.
