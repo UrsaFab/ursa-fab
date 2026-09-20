@@ -72,6 +72,9 @@ const socialImageURL = new URL(image, Astro.site);
         const menuButton = document.getElementById("menuButton");
         const siteMenu = document.getElementById("siteMenu");
         const menuSymbol = menuButton?.querySelector("span");
+        const contactButton = document.getElementById("contactButton");
+        const contactDialog = document.getElementById("contactDialog");
+        const contactClose = document.getElementById("contactClose");
 
         if (!menuButton || !siteMenu) {
           return;
@@ -96,9 +99,31 @@ const socialImageURL = new URL(image, Astro.site);
           link.addEventListener("click", () => setMenuState(false));
         });
 
+        contactButton?.addEventListener("click", () => {
+          setMenuState(false);
+          if (contactDialog instanceof HTMLDialogElement) {
+            contactDialog.showModal();
+          }
+        });
+
+        contactClose?.addEventListener("click", () => {
+          if (contactDialog instanceof HTMLDialogElement) {
+            contactDialog.close();
+          }
+        });
+
+        contactDialog?.addEventListener("click", (event) => {
+          if (event.target === contactDialog && contactDialog instanceof HTMLDialogElement) {
+            contactDialog.close();
+          }
+        });
+
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") {
             setMenuState(false);
+            if (contactDialog instanceof HTMLDialogElement) {
+              contactDialog.close();
+            }
           }
         });
 

@@ -41,4 +41,16 @@ const { alwaysVisible = false } = Astro.props;
   <a href="/about/">about</a>
   <a href="/services/">services</a>
   <a href="/portfolio/">portfolio</a>
+  <button id="contactButton" class="site-menu-contact" type="button">contact</button>
 </nav>
+
+<dialog id="contactDialog" class="contact-dialog" aria-labelledby="contactDialogTitle">
+  <div class="contact-dialog-content">
+    <button id="contactClose" class="contact-dialog-close" type="button" aria-label="Close contact details">×</button>
+    <p class="content-label">contact</p>
+    <h2 id="contactDialogTitle">Ursa fab.</h2>
+    <a href="mailto:info@ursafab.co.uk">info@ursafab.co.uk</a>
+    <p>Norwich, UK</p>
+    <a href="https://instagram.com/ursa.fab" target="_blank" rel="noopener noreferrer">@ursa.fab on Instagram</a>
+  </div>
+</dialog>

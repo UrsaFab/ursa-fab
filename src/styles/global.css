@@ -347,12 +347,96 @@ footer p {
 }
 
 .site-menu a:hover,
-.site-menu a:focus-visible {
+.site-menu a:focus-visible,
+.site-menu-contact:hover,
+.site-menu-contact:focus-visible {
   opacity: 0.65;
+}
+
+.site-menu-contact {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 7vw, 72px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+  text-transform: lowercase;
+  cursor: pointer;
 }
 
 body.menu-open {
   overflow-y: auto;
+}
+
+.contact-dialog {
+  width: min(560px, calc(100% - 32px));
+  margin: auto;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--white);
+  background: #1c1c1c;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+}
+
+.contact-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.contact-dialog-content {
+  position: relative;
+  padding: 48px;
+  text-align: center;
+}
+
+.contact-dialog-content h2 {
+  margin-top: 14px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(36px, 6vw, 58px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.contact-dialog-content p:not(.content-label) {
+  margin-top: 18px;
+  color: var(--grey);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.contact-dialog-content a {
+  display: block;
+  margin-top: 18px;
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact-dialog-content a:hover,
+.contact-dialog-content a:focus-visible {
+  opacity: 0.7;
+}
+
+.contact-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .contact-dialog-content {
+    padding: 40px 24px 32px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -579,10 +663,9 @@ body.menu-open {
 }
 
 .service-item {
-  padding: 36px 0;
+  padding: 36px 0 36px 72px;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr);
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
 }
 
@@ -620,9 +703,7 @@ body.menu-open {
   }
 
   .service-item {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 14px;
-    padding: 28px 0;
+    padding: 28px 0 28px 38px;
   }
 
   .service-item div > p {
@@ -665,6 +746,51 @@ body.menu-open {
 
 .portfolio-item {
   margin: 0;
+}
+
+.portfolio-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.portfolio-card:hover img,
+.portfolio-card:focus-visible img {
+  opacity: 0.78;
+}
+
+.portfolio-card:focus-visible,
+.portfolio-modal-close:focus-visible,
+.service-item h2 a:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 6px;
+}
+
+.portfolio-card-caption {
+  margin-top: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--grey);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.portfolio-card-caption span:first-child {
+  color: var(--white);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+.portfolio-card img {
+  transition: opacity 400ms ease;
 }
 
 .portfolio-item img,
@@ -761,5 +887,284 @@ body.menu-open {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 1ms;
+  }
+}
+
+.service-link {
+  display: block;
+}
+
+.service-link:hover .service-item {
+  background: rgba(255,255,255,0.03);
+}
+
+.clickable-item {
+  cursor: pointer;
+}
+
+.clickable-item:hover {
+  opacity: 0.85;
+}
+
+.hidden {
+  display: none;
+}
+
+.portfolio-modal {
+  position: fixed;
+  inset: 0;
+  width: min(100% - 32px, 960px);
+  max-width: 960px;
+  max-height: min(90vh, 900px);
+  margin: auto;
+  z-index: 5000;
+
+  padding: 2rem;
+
+  color: var(--white);
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+}
+
+.portfolio-modal:not([open]) {
+  display: none;
+}
+
+.portfolio-modal::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.portfolio-modal-content {
+  position: relative;
+}
+
+.portfolio-modal-gallery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  background: #111;
+}
+
+.portfolio-modal-gallery img {
+  width: 100%;
+  max-height: min(60vh, 620px);
+  height: auto;
+  object-fit: contain;
+}
+
+.portfolio-modal-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--white);
+  font: inherit;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.portfolio-modal-nav:hover,
+.portfolio-modal-nav:focus-visible {
+  background: var(--white);
+  color: var(--black);
+}
+
+.portfolio-modal-prev {
+  left: 16px;
+}
+
+.portfolio-modal-next {
+  right: 16px;
+}
+
+.portfolio-modal-counter {
+  margin: -0.5rem 0 1.25rem;
+  color: var(--grey);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.portfolio-modal-content h2 {
+  margin-top: 0.75rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.portfolio-modal-content [data-portfolio-summary] {
+  max-width: 650px;
+  margin-top: 1rem;
+  color: var(--grey);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.portfolio-modal-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+
+  border: 0;
+  background: transparent;
+
+  color: white;
+  cursor: pointer;
+
+  font-size: 2rem;
+}
+
+.service-item h2 a {
+  transition: opacity 250ms ease;
+}
+
+.service-item h2 a:hover {
+  opacity: 0.7;
+}
+
+.service-description-link {
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.service-description-link:hover {
+  opacity: 0.7;
+}
+
+.studio-carts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 32px;
+  border-top: 0;
+}
+
+.studio-cart-item {
+  display: block;
+  min-width: 0;
+  padding: 0 0 40px;
+  border: 0;
+}
+
+.studio-cart-item > div {
+  min-width: 0;
+}
+
+.studio-cart-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.studio-cart-card:hover .studio-cart-image,
+.studio-cart-card:focus-visible .studio-cart-image {
+  opacity: 0.78;
+}
+
+.studio-cart-card:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 6px;
+}
+
+.studio-cart-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 24px;
+  transition: opacity 400ms ease;
+}
+
+.studio-cart-card-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--grey);
+  font-size: 14px;
+}
+
+.studio-cart-card-caption span:first-child {
+  color: var(--white);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 28px;
+  font-style: italic;
+}
+
+.studio-cart-modal-price {
+  margin-top: 12px;
+  font-size: 22px;
+}
+
+.studio-cart-modal .studio-cart-description {
+  width: min(650px, 100%);
+  margin-top: 16px;
+}
+
+.studio-cart-gallery {
+  width: 100%;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.studio-cart-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.studio-cart-description {
+  width: min(620px, 100%);
+  margin-top: 16px;
+  color: var(--grey);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.studio-cart-price {
+  margin-top: 18px;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .portfolio-card-caption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .portfolio-modal {
+    padding: 1rem;
+  }
+
+  .portfolio-modal-content {
+    width: 100%;
+  }
+
+  .studio-carts-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .studio-cart-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

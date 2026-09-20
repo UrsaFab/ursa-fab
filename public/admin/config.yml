@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: UrsaFab/ursa-fab
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: portfolio
+    label: Portfolio
+    folder: src/content/portfolio
+    create: true
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - label: Gallery images
+        name: images
+        widget: list
+        field: { label: Image, name: image, widget: image }
+      - { label: Description, name: body, widget: markdown }
+
+  - name: studiocarts
+    label: Studio carts
+    folder: src/content/studiocarts
+    create: true
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Price, name: price, widget: number, value_type: int, min: 0 }
+      - { label: Thumbnail, name: thumbnail, widget: image }
+      - label: Gallery
+        name: gallery
+        widget: list
+        field: { label: Image, name: image, widget: image }
+      - { label: Description, name: body, widget: markdown }

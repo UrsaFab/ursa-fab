@@ -1,0 +1,131 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import { getCollection, render } from "astro:content";
+
+const carts = await getCollection("studiocarts");
+---
+
+<Layout
+  title="Studio Cart Designs | Ursa fab."
+  description="Stock studio cart designs and production equipment."
+  image="/services.jpeg"
+>
+  <Header alwaysVisible />
+
+  <main class="services-page studio-carts-page">
+    <header class="services-intro">
+      <p class="content-label">studio carts</p>
+      <h1>Stock designs.</h1>
+    </header>
+
+    <section class="services-list studio-carts-grid">
+      {carts.map(async (cart) => {
+        const { Content } = await render(cart);
+        return (
+        <article class="service-item studio-cart-item">
+          <button
+            class="studio-cart-card"
+            type="button"
+            data-cart-trigger
+            data-title={cart.data.title}
+            data-price={`£${cart.data.price}`}
+            data-description={cart.body}
+            data-images={JSON.stringify(cart.data.gallery)}
+            aria-label={`View details for ${cart.data.title}`}
+          >
+            <img class="studio-cart-image" src={cart.data.thumbnail} alt={cart.data.title} />
+            <span class="studio-cart-card-caption">
+              <span>{cart.data.title}</span>
+              <span>View design</span>
+            </span>
+          </button>
+        </article>
+        );
+      })}
+    </section>
+  </main>
+
+  <dialog class="portfolio-modal studio-cart-modal" data-cart-modal aria-label="Studio cart details">
+    <div class="portfolio-modal-content">
+      <button class="portfolio-modal-close" type="button" data-cart-close aria-label="Close studio cart details">×</button>
+      <div class="portfolio-modal-gallery" data-cart-gallery>
+        <button class="portfolio-modal-nav portfolio-modal-prev" type="button" data-cart-prev aria-label="Previous image">‹</button>
+        <img data-cart-image alt="" />
+        <button class="portfolio-modal-nav portfolio-modal-next" type="button" data-cart-next aria-label="Next image">›</button>
+      </div>
+      <p class="portfolio-modal-counter" data-cart-counter></p>
+      <p class="content-label">studio cart</p>
+      <h2 data-cart-title></h2>
+      <p class="studio-cart-modal-price" data-cart-price></p>
+      <div class="studio-cart-description" data-cart-description></div>
+    </div>
+  </dialog>
+
+  <script>
+    const cartModal = document.querySelector("[data-cart-modal]");
+    const cartTitle = cartModal?.querySelector("[data-cart-title]");
+    const cartPrice = cartModal?.querySelector("[data-cart-price]");
+    const cartDescription = cartModal?.querySelector("[data-cart-description]");
+    const cartGallery = cartModal?.querySelector("[data-cart-gallery]");
+    const cartImage = cartModal?.querySelector("[data-cart-image]");
+    const cartCounter = cartModal?.querySelector("[data-cart-counter]");
+    const cartPrevious = cartModal?.querySelector("[data-cart-prev]");
+    const cartNext = cartModal?.querySelector("[data-cart-next]");
+    const cartClose = cartModal?.querySelector("[data-cart-close]");
+    let cartImages: string[] = [];
+    let cartImageIndex = 0;
+
+    function renderCartImage() {
+      if (!(cartImage instanceof HTMLImageElement) || !cartCounter || !cartPrevious || !cartNext) return;
+      cartImage.src = cartImages[cartImageIndex] || "";
+      cartImage.alt = `${cartTitle?.textContent || "Studio cart"} image ${cartImageIndex + 1}`;
+      cartCounter.textContent = `${cartImageIndex + 1} / ${cartImages.length}`;
+      cartPrevious.toggleAttribute("hidden", cartImages.length < 2);
+      cartNext.toggleAttribute("hidden", cartImages.length < 2);
+    }
+
+    function moveCartImage(direction: number) {
+      if (cartImages.length < 2) return;
+      cartImageIndex = (cartImageIndex + direction + cartImages.length) % cartImages.length;
+      renderCartImage();
+    }
+
+    document.querySelectorAll("[data-cart-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        if (!cartModal || !cartTitle || !cartPrice || !cartDescription) return;
+        cartImages = JSON.parse(trigger.getAttribute("data-images") || "[]");
+        cartImageIndex = 0;
+        cartTitle.textContent = trigger.getAttribute("data-title") || "";
+        cartPrice.textContent = trigger.getAttribute("data-price") || "";
+        cartDescription.textContent = trigger.getAttribute("data-description") || "";
+        renderCartImage();
+        if (cartModal instanceof HTMLDialogElement) cartModal.showModal();
+      });
+    });
+
+    cartPrevious?.addEventListener("click", () => moveCartImage(-1));
+    cartNext?.addEventListener("click", () => moveCartImage(1));
+    cartClose?.addEventListener("click", () => {
+      if (cartModal instanceof HTMLDialogElement) cartModal.close();
+    });
+    cartModal?.addEventListener("click", (event) => {
+      if (event.target === cartModal && cartModal instanceof HTMLDialogElement) cartModal.close();
+    });
+    cartModal?.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") moveCartImage(-1);
+      if (event.key === "ArrowRight") moveCartImage(1);
+    });
+
+    let cartTouchStartX = 0;
+    cartGallery?.addEventListener("touchstart", (event) => {
+      cartTouchStartX = event.changedTouches[0]?.screenX || 0;
+    }, { passive: true });
+    cartGallery?.addEventListener("touchend", (event) => {
+      const cartTouchEndX = event.changedTouches[0]?.screenX || 0;
+      if (Math.abs(cartTouchEndX - cartTouchStartX) > 40) {
+        moveCartImage(cartTouchEndX < cartTouchStartX ? 1 : -1);
+      }
+    }, { passive: true });
+  </script>
+</Layout>

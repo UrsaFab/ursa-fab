@@ -3,6 +3,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("portfolio");
 ---
 
 <Layout
@@ -19,37 +22,108 @@ import Header from "../components/Header.astro";
     </header>
 
     <section class="portfolio-grid" aria-label="Selected Ursa fab. work">
-      <figure class="portfolio-item">
-        <img src="/wip.jpeg" alt="WIP" />
-        <figcaption>
-          <span>Oh hi -</span>
-          <span></span>
-        </figcaption>
-      </figure>
-
-      <figure class="portfolio-item">
-        <div class="portfolio-placeholder" aria-label="Project image placeholder"></div>
-        <figcaption>
-          <span>I'm sorry,</span>
-          <span></span>
-        </figcaption>
-      </figure>
-
-      <figure class="portfolio-item">
-        <div class="portfolio-placeholder" aria-label="Project image placeholder"></div>
-        <figcaption>
-          <span>Still working on this bit.</span>
-          <span></span>
-        </figcaption>
-      </figure>
-      
-      <figure class="portfolio-item">
-        <div class="portfolio-placeholder" aria-label="Project image placeholder"></div>
-        <figcaption>
-          <span>Check the instagram!</span>
-          <span></span>
-        </figcaption>
-      </figure>
+      {projects.map((project) => (
+        <article class="portfolio-item">
+          <button
+            class="portfolio-card"
+            type="button"
+            data-portfolio-trigger
+            data-title={project.data.title}
+            data-summary={project.data.summary}
+            data-images={JSON.stringify(project.data.images)}
+            aria-label={`View details for ${project.data.title}`}
+          >
+            <img src={project.data.images[0]} alt={project.data.title} />
+            <span class="portfolio-card-caption">
+              <span>{project.data.title}</span>
+              <span>View project</span>
+            </span>
+          </button>
+        </article>
+      ))}
     </section>
   </main>
+
+  <dialog class="portfolio-modal" data-portfolio-modal aria-label="Portfolio project details">
+    <div class="portfolio-modal-content">
+      <button class="portfolio-modal-close" type="button" data-portfolio-close aria-label="Close project details">×</button>
+      <div class="portfolio-modal-gallery" data-portfolio-gallery>
+        <button class="portfolio-modal-nav portfolio-modal-prev" type="button" data-portfolio-prev aria-label="Previous image">‹</button>
+        <img data-portfolio-image alt="" />
+        <button class="portfolio-modal-nav portfolio-modal-next" type="button" data-portfolio-next aria-label="Next image">›</button>
+      </div>
+      <p class="portfolio-modal-counter" data-portfolio-counter></p>
+      <p class="content-label">project</p>
+      <h2 data-portfolio-title></h2>
+      <p data-portfolio-summary></p>
+    </div>
+  </dialog>
+
+  <script>
+    const modal = document.querySelector("[data-portfolio-modal]");
+    const title = modal?.querySelector("[data-portfolio-title]");
+    const summary = modal?.querySelector("[data-portfolio-summary]");
+    const gallery = modal?.querySelector("[data-portfolio-gallery]");
+    const image = modal?.querySelector("[data-portfolio-image]");
+    const counter = modal?.querySelector("[data-portfolio-counter]");
+    const previous = modal?.querySelector("[data-portfolio-prev]");
+    const next = modal?.querySelector("[data-portfolio-next]");
+    const close = modal?.querySelector("[data-portfolio-close]");
+    let images: string[] = [];
+    let imageIndex = 0;
+
+    function renderPortfolioImage() {
+      if (!(image instanceof HTMLImageElement) || !counter || !previous || !next) return;
+      image.src = images[imageIndex];
+      image.alt = `${title?.textContent || "Project"} image ${imageIndex + 1}`;
+      counter.textContent = `${imageIndex + 1} / ${images.length}`;
+      previous.toggleAttribute("hidden", images.length < 2);
+      next.toggleAttribute("hidden", images.length < 2);
+    }
+
+    function movePortfolioImage(direction: number) {
+      if (images.length < 2) return;
+      imageIndex = (imageIndex + direction + images.length) % images.length;
+      renderPortfolioImage();
+    }
+
+    function closePortfolioModal() {
+      if (modal instanceof HTMLDialogElement) modal.close();
+    }
+
+    document.querySelectorAll("[data-portfolio-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        if (!modal || !title || !summary || !gallery) return;
+        images = JSON.parse(trigger.getAttribute("data-images") || "[]");
+        imageIndex = 0;
+        title.textContent = trigger.getAttribute("data-title") || "";
+        summary.textContent = trigger.getAttribute("data-summary") || "";
+        renderPortfolioImage();
+        if (modal instanceof HTMLDialogElement) modal.showModal();
+      });
+    });
+
+    previous?.addEventListener("click", () => movePortfolioImage(-1));
+    next?.addEventListener("click", () => movePortfolioImage(1));
+    close?.addEventListener("click", closePortfolioModal);
+    modal?.addEventListener("click", (event) => {
+      if (event.target === modal) closePortfolioModal();
+    });
+    modal?.addEventListener("cancel", closePortfolioModal);
+    modal?.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") movePortfolioImage(-1);
+      if (event.key === "ArrowRight") movePortfolioImage(1);
+    });
+
+    let touchStartX = 0;
+    gallery?.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0]?.screenX || 0;
+    }, { passive: true });
+    gallery?.addEventListener("touchend", (event) => {
+      const touchEndX = event.changedTouches[0]?.screenX || 0;
+      if (Math.abs(touchEndX - touchStartX) > 40) {
+        movePortfolioImage(touchEndX < touchStartX ? 1 : -1);
+      }
+    }, { passive: true });
+  </script>
 </Layout>

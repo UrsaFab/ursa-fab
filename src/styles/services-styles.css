@@ -29,17 +29,14 @@
 }
 
 .service-item {
-  padding: 36px 0;
+  padding: 36px 0 36px 72px;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr);
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .service-number {
-  color: var(--grey);
-  font-size: 13px;
-  letter-spacing: 0.12em;
+  display: none;
 }
 
 .service-item h2 {
@@ -70,9 +67,7 @@
   }
 
   .service-item {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 14px;
-    padding: 28px 0;
+    padding: 28px 0 28px 38px;
   }
 
   .service-item div > p {
