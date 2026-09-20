@@ -1,0 +1,10 @@
+name = "ursa-fab-decap-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-09-20"
+
+[[routes]]
+pattern = "auth.ursafab.co.uk"
+custom_domain = true
+
+[vars]
+GITHUB_REPO_PRIVATE = "0"

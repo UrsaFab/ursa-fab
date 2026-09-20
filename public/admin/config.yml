@@ -2,6 +2,10 @@ backend:
   name: github
   repo: UrsaFab/ursa-fab
   branch: main
+  base_url: https://auth.ursafab.co.uk
+  auth_endpoint: auth
+
+local_backend: true
 
 media_folder: public/uploads
 public_folder: /uploads
