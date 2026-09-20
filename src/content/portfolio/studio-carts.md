@@ -1,5 +1,5 @@
 ---
-title: Studio Carts
+title: Studio carts
 summary: Set of carts (flag/gel, 4x3 and 4x2 euro crate) for a+light
 images:
   - /uploads/1000018992.jpg
