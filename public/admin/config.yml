@@ -24,7 +24,7 @@ collections:
         name: images
         widget: list
         field: { label: Image, name: image, widget: image }
-      - { label: Description, name: body, widget: markdown }
+      - { label: Description, name: description, widget: markdown }
 
   - name: studiocarts
     label: Studio carts
@@ -40,4 +40,4 @@ collections:
         name: gallery
         widget: list
         field: { label: Image, name: image, widget: image }
-      - { label: Description, name: body, widget: markdown }
+      - { label: Description, name: description, widget: markdown }

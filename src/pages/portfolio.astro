@@ -30,6 +30,7 @@ const projects = await getCollection("portfolio");
             data-portfolio-trigger
             data-title={project.data.title}
             data-summary={project.data.summary}
+            data-description={project.data.description}
             data-images={JSON.stringify(project.data.images)}
             aria-label={`View details for ${project.data.title}`}
           >
@@ -56,6 +57,7 @@ const projects = await getCollection("portfolio");
       <p class="content-label">project</p>
       <h2 data-portfolio-title></h2>
       <p data-portfolio-summary></p>
+      <div class="portfolio-modal-description" data-portfolio-description></div>
     </div>
   </dialog>
 
@@ -63,6 +65,7 @@ const projects = await getCollection("portfolio");
     const modal = document.querySelector("[data-portfolio-modal]");
     const title = modal?.querySelector("[data-portfolio-title]");
     const summary = modal?.querySelector("[data-portfolio-summary]");
+    const description = modal?.querySelector("[data-portfolio-description]");
     const gallery = modal?.querySelector("[data-portfolio-gallery]");
     const image = modal?.querySelector("[data-portfolio-image]");
     const counter = modal?.querySelector("[data-portfolio-counter]");
@@ -93,11 +96,12 @@ const projects = await getCollection("portfolio");
 
     document.querySelectorAll("[data-portfolio-trigger]").forEach((trigger) => {
       trigger.addEventListener("click", () => {
-        if (!modal || !title || !summary || !gallery) return;
+        if (!modal || !title || !summary || !description || !gallery) return;
         images = JSON.parse(trigger.getAttribute("data-images") || "[]");
         imageIndex = 0;
         title.textContent = trigger.getAttribute("data-title") || "";
         summary.textContent = trigger.getAttribute("data-summary") || "";
+        description.textContent = trigger.getAttribute("data-description") || "";
         renderPortfolioImage();
         if (modal instanceof HTMLDialogElement) modal.showModal();
       });

@@ -8,6 +8,7 @@ const portfolio = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
+    description: z.string().default(""),
     images: z.array(imagePath).min(1),
   }),
 });
@@ -19,6 +20,7 @@ const studiocarts = defineCollection({
     price: z.number().nonnegative(),
     thumbnail: imagePath,
     gallery: z.array(imagePath).min(1),
+    description: z.string().default(""),
   }),
 });
 

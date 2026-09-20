@@ -1010,6 +1010,15 @@ body.menu-open {
   line-height: 1.7;
 }
 
+.portfolio-modal-description {
+  max-width: 650px;
+  margin-top: 1rem;
+  color: var(--grey);
+  font-size: 17px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
 .portfolio-modal-close {
   position: absolute;
   right: 1rem;
