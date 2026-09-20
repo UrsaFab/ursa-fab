@@ -65,8 +65,13 @@ function callbackResponse(status: "success" | "error", payload: Record<string, s
   <body>
     <p>Authorising Decap CMS...</p>
     <script>
-      window.opener.postMessage(${escapedMessage}, "*");
-      window.close();
+      const receiveMessage = () => {
+        window.opener.postMessage(${escapedMessage}, "*");
+        window.removeEventListener("message", receiveMessage, false);
+        window.close();
+      };
+      window.addEventListener("message", receiveMessage, false);
+      window.opener.postMessage("authorizing:github", "*");
     </script>
   </body>
 </html>`,
