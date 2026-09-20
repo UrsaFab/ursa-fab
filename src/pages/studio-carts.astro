@@ -30,7 +30,7 @@ const carts = await getCollection("studiocarts");
             data-cart-trigger
             data-title={cart.data.title}
             data-price={`£${cart.data.price}`}
-            data-description={cart.data.description}
+            data-description={cart.data.description || cart.body}
             data-images={JSON.stringify(cart.data.gallery)}
             aria-label={`View details for ${cart.data.title}`}
           >

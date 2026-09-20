@@ -30,7 +30,7 @@ const projects = await getCollection("portfolio");
             data-portfolio-trigger
             data-title={project.data.title}
             data-summary={project.data.summary}
-            data-description={project.data.description}
+            data-description={project.data.description || project.body}
             data-images={JSON.stringify(project.data.images)}
             aria-label={`View details for ${project.data.title}`}
           >
