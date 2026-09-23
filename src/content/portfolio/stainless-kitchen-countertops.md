@@ -1,4 +1,5 @@
 ---
+order: 1
 title: Stainless kitchen countertops
 summary: Installed in a Victorian terrace property.
 images:
