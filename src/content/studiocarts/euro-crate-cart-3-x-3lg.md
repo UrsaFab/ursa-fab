@@ -1,7 +1,7 @@
 ---
 order: 1
 title: Euro Crate Cart - 3 x 3lg
-price: 1140
+price: 1190
 thumbnail: /uploads/crate-3-x-l3.png
 gallery:
   - /uploads/crate-3-x-l3.png
