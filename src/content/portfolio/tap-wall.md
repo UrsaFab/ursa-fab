@@ -1,4 +1,5 @@
 ---
+order: 2
 title: Tap wall
 summary: For Bullards' Tipsy Anchor bar.
 images:
