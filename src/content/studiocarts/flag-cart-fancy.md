@@ -1,6 +1,6 @@
 ---
 order: 1
-title: Flag Cart (Fancy)
+title: Flag/Frame/Gel Cart
 price: 1670
 thumbnail: /uploads/flag-gel.png
 gallery:
