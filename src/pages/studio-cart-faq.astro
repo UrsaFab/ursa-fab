@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import StudioCartFaq from "../components/StudioCartFaq.astro";
+import { getCollection } from "astro:content";
+
+const faq = (await getCollection("faq"))[0]?.data.items || [];
+---
+
+<Layout
+  title="Studio Cart FAQ | Ursa fab. Norwich"
+  description="Answers to common questions about Ursa fab. studio cart designs, customisation, delivery and quotes in Norwich, UK."
+  image="/uploads/crate-3-x-l2-s2.png"
+>
+  <Header alwaysVisible />
+  <main class="services-page studio-cart-faq-page">
+    <header class="services-intro">
+      <p class="content-label">Studio cart FAQ</p>
+      <h1>Frequently asked questions.</h1>
+    </header>
+    <StudioCartFaq items={faq} showLink={false} />
+  </main>
+</Layout>

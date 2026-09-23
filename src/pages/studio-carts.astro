@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
+import StudioCartFaq from "../components/StudioCartFaq.astro";
 import { getCollection, render } from "astro:content";
 
 const entries = (await getCollection("studiocarts")).sort(
@@ -18,12 +19,13 @@ const carts = cartsOrder
       .filter((entry): entry is (typeof entries)[number] => Boolean(entry))
       .concat(entries.filter((entry) => !cartsOrderIds.includes(entry.id)))
   : entries;
+const faq = (await getCollection("faq"))[0]?.data.items || [];
 ---
 
 <Layout
-  title="Studio Cart Designs | Ursa fab."
-  description="Stock studio cart designs and production equipment."
-  image="/services.jpeg"
+  title="Studio Cart Designs & Prices | Ursa fab. Norwich"
+  description="Browse stock studio cart designs from Ursa fab. in Norwich, UK, including crate carts, flag carts and production equipment with images, prices and bespoke fabrication options."
+  image="/uploads/crate-3-x-l2-s2.png"
 >
   <Header alwaysVisible />
 
@@ -38,9 +40,9 @@ const carts = cartsOrder
         const { Content } = await render(cart);
         return (
         <article class="service-item studio-cart-item">
-          <button
+          <a
             class="studio-cart-card"
-            type="button"
+            href={`/studio-carts/${cart.id}/`}
             data-cart-trigger
             data-title={cart.data.title}
             data-price={`£${cart.data.price}`}
@@ -48,15 +50,30 @@ const carts = cartsOrder
             data-images={JSON.stringify(cart.data.gallery)}
             aria-label={`View details for ${cart.data.title}`}
           >
-            <img class="studio-cart-image" src={cart.data.thumbnail} alt={cart.data.title} />
+            <img
+              class="studio-cart-image"
+              src={cart.data.thumbnail}
+              alt={cart.data.imageAlt || `${cart.data.title} studio cart`}
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 600px) 50vw, 25vw"
+            />
             <span class="studio-cart-card-caption">
-              <span>{cart.data.title}</span>
+            <h2>{cart.data.title}</h2>
             </span>
-          </button>
+          </a>
         </article>
         );
       })}
     </section>
+
+    <p>
+      Looking for a tailored solution?{" "}
+      <a class="service-description-link" href="/services/">
+        Explore bespoke fabrication services
+      </a>
+    </p>
+    <StudioCartFaq items={faq} />
   </main>
 
   <dialog class="portfolio-modal studio-cart-modal" data-cart-modal aria-label="Studio cart details">
@@ -105,7 +122,8 @@ const carts = cartsOrder
     }
 
     document.querySelectorAll("[data-cart-trigger]").forEach((trigger) => {
-      trigger.addEventListener("click", () => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
         if (!cartModal || !cartTitle || !cartPrice || !cartDescription) return;
         cartImages = JSON.parse(trigger.getAttribute("data-images") || "[]");
         cartImageIndex = 0;

@@ -46,9 +46,10 @@ const projects = portfolioOrder
             data-summary={project.data.summary}
             data-description={project.data.description || project.body}
             data-images={JSON.stringify(project.data.images)}
+            data-related-studio-cart={project.data.relatedStudioCart}
             aria-label={`View details for ${project.data.title}`}
           >
-            <img src={project.data.images[0]} alt={project.data.title} />
+            <img src={project.data.images[0]} alt={project.data.title} loading="lazy" decoding="async" sizes="(max-width: 600px) 100vw, 50vw" />
             <span class="portfolio-card-caption">
               <span>{project.data.title}</span>
               <span>View project</span>
@@ -72,6 +73,9 @@ const projects = portfolioOrder
       <h2 data-portfolio-title></h2>
       <p data-portfolio-summary></p>
       <div class="portfolio-modal-description" data-portfolio-description></div>
+      <a class="service-description-link" data-related-studio-cart-link hidden href="/studio-carts/">
+        View related studio cart
+      </a>
     </div>
   </dialog>
 
@@ -80,6 +84,7 @@ const projects = portfolioOrder
     const title = modal?.querySelector("[data-portfolio-title]");
     const summary = modal?.querySelector("[data-portfolio-summary]");
     const description = modal?.querySelector("[data-portfolio-description]");
+    const relatedStudioCartLink = modal?.querySelector("[data-related-studio-cart-link]");
     const gallery = modal?.querySelector("[data-portfolio-gallery]");
     const image = modal?.querySelector("[data-portfolio-image]");
     const counter = modal?.querySelector("[data-portfolio-counter]");
@@ -116,6 +121,11 @@ const projects = portfolioOrder
         title.textContent = trigger.getAttribute("data-title") || "";
         summary.textContent = trigger.getAttribute("data-summary") || "";
         description.textContent = trigger.getAttribute("data-description") || "";
+        if (relatedStudioCartLink instanceof HTMLAnchorElement) {
+          const relatedCart = trigger.getAttribute("data-related-studio-cart") || "";
+          relatedStudioCartLink.hidden = !relatedCart;
+          if (relatedCart) relatedStudioCartLink.href = `/studio-carts/${relatedCart}/`;
+        }
         renderPortfolioImage();
         if (modal instanceof HTMLDialogElement) modal.showModal();
       });

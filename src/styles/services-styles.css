@@ -31,7 +31,9 @@
 .service-item {
   padding: 36px 0 36px 72px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+  gap: 48px;
+  align-items: stretch;
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
 }
 
@@ -56,6 +58,15 @@
   line-height: 1.8;
 }
 
+.service-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  align-self: start;
+}
+
 @media (max-width: 768px) {
   .services-page {
     width: calc(100% - 32px);
@@ -68,6 +79,13 @@
 
   .service-item {
     padding: 28px 0 28px 38px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .service-image {
+    height: auto;
+    max-height: 320px;
   }
 
   .service-item div > p {

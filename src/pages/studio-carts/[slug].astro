@@ -1,0 +1,109 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import StudioCartFaq from "../../components/StudioCartFaq.astro";
+import StudioCartBreadcrumbs from "../../components/StudioCartBreadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const carts = await getCollection("studiocarts");
+
+  return carts.map((cart) => ({
+    params: { slug: cart.id },
+    props: { cart },
+  }));
+}
+
+const { cart } = Astro.props;
+const { Content } = await render(cart);
+const description = cart.data.description || cart.body;
+const imageAlt = cart.data.imageAlt || `${cart.data.title} studio cart`;
+const productSummary = cart.data.summary || description;
+const faq = (await getCollection("faq"))[0]?.data.items || [];
+const productUrl = new URL(`/studio-carts/${cart.id}/`, Astro.site);
+const productImages = cart.data.gallery.map((image) => new URL(image, Astro.site).toString());
+const productStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: cart.data.title,
+  description: description || `${cart.data.title}, a studio cart design by Ursa fab.`,
+  image: productImages,
+  brand: {
+    "@type": "Brand",
+    name: "Ursa fab.",
+  },
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "GBP",
+    price: cart.data.price.toFixed(2),
+    url: productUrl.toString(),
+  },
+};
+---
+
+<Layout
+  title={`${cart.data.title} Studio Cart Design & Price | Ursa fab. Norwich`}
+  description={productSummary || `${cart.data.title}, a studio cart design by Ursa fab. in Norwich.`}
+  image={cart.data.thumbnail}
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(productStructuredData)}
+  />
+  <Header alwaysVisible />
+
+  <main class="services-page studio-cart-detail-page">
+    <article class="studio-cart-detail">
+      <StudioCartBreadcrumbs
+        title={cart.data.title}
+        url={`/studio-carts/${cart.id}/`}
+      />
+      <header class="services-intro">
+        <p class="content-label">studio cart</p>
+        <h1>{cart.data.title}</h1>
+        {cart.data.summary && <p class="studio-cart-detail-summary">{cart.data.summary}</p>}
+        <p class="studio-cart-detail-price">£{cart.data.price}</p>
+      </header>
+
+      {(cart.data.dimensions || cart.data.materials || cart.data.availability || cart.data.leadTime || cart.data.categories.length > 0) && (
+        <dl class="studio-cart-detail-specs">
+          {cart.data.dimensions && <><dt>Dimensions</dt><dd>{cart.data.dimensions}</dd></>}
+          {cart.data.materials && <><dt>Materials</dt><dd>{cart.data.materials}</dd></>}
+          {cart.data.availability && <><dt>Availability</dt><dd>{cart.data.availability}</dd></>}
+          {cart.data.leadTime && <><dt>Lead time</dt><dd>{cart.data.leadTime}</dd></>}
+          {cart.data.categories.length > 0 && <><dt>Categories</dt><dd>{cart.data.categories.join(", ")}</dd></>}
+        </dl>
+      )}
+
+      <div class="studio-cart-detail-gallery">
+        {cart.data.gallery.map((image, index) => (
+          <figure>
+            <img
+              src={image}
+              alt={`${imageAlt}${index === 0 ? "" : `, detail view ${index + 1}`}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              sizes="(max-width: 600px) 100vw, 50vw"
+            />
+          </figure>
+        ))}
+      </div>
+
+      <div class="studio-cart-detail-description">
+        {cart.data.description ? <p>{cart.data.description}</p> : <Content />}
+      </div>
+
+      <p>
+        <a class="service-description-link" href="mailto:info@ursafab.co.uk">
+          Contact us about this studio cart
+        </a>
+      </p>
+      <p>
+        <a class="service-description-link" href="/studio-carts/">
+          Back to studio cart designs
+        </a>
+      </p>
+      <StudioCartFaq items={faq} />
+    </article>
+  </main>
+</Layout>

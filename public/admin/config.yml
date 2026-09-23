@@ -21,6 +21,14 @@ collections:
       - { label: Display order, name: order, widget: number, value_type: int, min: 1, default: 1, hint: "Lower numbers appear first." }
       - { label: Title, name: title, widget: string }
       - { label: Summary, name: summary, widget: text }
+      - label: Related studio cart
+        name: relatedStudioCart
+        widget: relation
+        collection: studiocarts
+        value_field: "{{slug}}"
+        search_fields: ["title"]
+        display_fields: ["title"]
+        required: false
       - label: Gallery images
         name: images
         widget: image
@@ -29,6 +37,21 @@ collections:
             multiple: true
             max_files: 50
       - { label: Description, name: description, widget: markdown }
+
+  - name: studio_cart_content
+    label: Studio cart content
+    files:
+      - label: Studio cart FAQ
+        name: studio_cart_faq
+        file: src/content/studio-cart-faq.yml
+        fields:
+          - label: Questions
+            name: items
+            widget: list
+            summary: "{{fields.question}}"
+            fields:
+              - { label: Question, name: question, widget: string }
+              - { label: Answer, name: answer, widget: text }
 
   - name: ordering
     label: Display order
@@ -76,7 +99,9 @@ collections:
       - { label: Display order, name: order, widget: number, value_type: int, min: 1, default: 1, hint: "Lower numbers appear first." }
       - { label: Title, name: title, widget: string }
       - { label: Price, name: price, widget: number, value_type: int, min: 0 }
+      - { label: Summary, name: summary, widget: text, required: false, hint: "Short description used on the product page." }
       - { label: Thumbnail, name: thumbnail, widget: image }
+      - { label: Image description, name: imageAlt, widget: string, required: false, hint: "Describe the cart shown in the images for accessibility and search engines." }
       - label: Gallery
         name: gallery
         widget: image
@@ -84,4 +109,13 @@ collections:
           config:
             multiple: true
             max_files: 50
+      - { label: Dimensions, name: dimensions, widget: string, required: false }
+      - { label: Materials, name: materials, widget: string, required: false }
+      - { label: Availability, name: availability, widget: string, required: false }
+      - { label: Lead time, name: leadTime, widget: string, required: false }
+      - label: Categories
+        name: categories
+        widget: list
+        required: false
+        field: { label: Category, name: category, widget: string }
       - { label: Description, name: description, widget: markdown }

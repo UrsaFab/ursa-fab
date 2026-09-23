@@ -757,6 +757,7 @@ body.menu-open {
   color: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .portfolio-card:hover img,
@@ -1108,15 +1109,17 @@ body.menu-open {
   font-size: 14px;
 }
 
-.studio-cart-card-caption span:first-child {
+.studio-cart-card-caption h2 {
+  margin: 0;
   color: var(--white);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 21px;
   font-style: italic;
+  font-weight: 400;
 }
 
 @media (max-width: 600px) {
-  .studio-cart-card-caption span:first-child {
+  .studio-cart-card-caption h2 {
     font-size: 18px;
   }
 }
@@ -1131,6 +1134,111 @@ body.menu-open {
   margin-top: 16px;
   font-size: 15px;
   line-height: 2;
+  white-space: pre-line;
+}
+
+.studio-cart-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.studio-cart-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+  color: var(--grey);
+  font-size: 14px;
+}
+
+.studio-cart-breadcrumbs a:hover {
+  color: var(--white);
+}
+
+.studio-cart-detail-price {
+  margin-top: 12px;
+  color: var(--grey);
+  font-size: 18px;
+}
+
+.studio-cart-detail-summary {
+  max-width: 680px;
+  margin-top: 20px;
+  color: var(--grey);
+}
+
+.studio-cart-detail-specs {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 24px;
+  max-width: 680px;
+  margin: 40px 0;
+  font-size: 15px;
+}
+
+.studio-cart-detail-specs dt {
+  color: var(--grey);
+}
+
+.studio-cart-detail-specs dd {
+  margin: 0;
+}
+
+.studio-cart-detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 48px 0;
+}
+
+.studio-cart-detail-gallery figure {
+  margin: 0;
+  background: #111;
+}
+
+.studio-cart-detail-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.studio-cart-detail-description {
+  max-width: 680px;
+  margin-bottom: 32px;
+  white-space: pre-line;
+}
+
+.studio-cart-faq {
+  max-width: 780px;
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey);
+}
+
+.studio-cart-faq h2 {
+  margin: 12px 0 32px;
+}
+
+.studio-cart-faq-list {
+  display: grid;
+  gap: 16px;
+}
+
+.studio-cart-faq-item {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.studio-cart-faq-question {
+  margin: 0 0 12px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 21px;
+}
+
+.studio-cart-faq-item p:last-child {
+  max-width: 680px;
+  margin: 0;
+  color: var(--grey);
   white-space: pre-line;
 }
 
@@ -1186,5 +1294,9 @@ body.menu-open {
   .studio-carts-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 16px;
+  }
+
+  .studio-cart-detail-gallery {
+    grid-template-columns: 1fr;
   }
 }

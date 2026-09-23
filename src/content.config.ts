@@ -9,6 +9,7 @@ const portfolio = defineCollection({
     order: z.number().int().positive().default(1),
     title: z.string(),
     summary: z.string(),
+    relatedStudioCart: z.string().default(""),
     description: z.string().default(""),
     images: z.array(imagePath).min(1),
   }),
@@ -20,8 +21,15 @@ const studiocarts = defineCollection({
     order: z.number().int().positive().default(1),
     title: z.string(),
     price: z.number().nonnegative(),
+    summary: z.string().default(""),
     thumbnail: imagePath,
+    imageAlt: z.string().default(""),
     gallery: z.array(imagePath).min(1),
+    dimensions: z.string().default(""),
+    materials: z.string().default(""),
+    availability: z.string().default(""),
+    leadTime: z.string().default(""),
+    categories: z.array(z.string()).default([]),
     description: z.string().default(""),
   }),
 });
@@ -35,4 +43,16 @@ const ordering = defineCollection({
   }),
 });
 
-export const collections = { portfolio, studiocarts, ordering };
+const faq = defineCollection({
+  loader: glob({ pattern: "studio-cart-faq.yml", base: "./src/content" }),
+  schema: z.object({
+    items: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    ).default([]),
+  }),
+});
+
+export const collections = { portfolio, studiocarts, ordering, faq };
