@@ -1024,6 +1024,7 @@ body.menu-open {
   position: absolute;
   right: 1rem;
   top: 1rem;
+  z-index: 2;
 
   border: 0;
   background: transparent;
@@ -1031,7 +1032,10 @@ body.menu-open {
   color: white;
   cursor: pointer;
 
-  font-size: 2rem;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .service-item h2 a {
