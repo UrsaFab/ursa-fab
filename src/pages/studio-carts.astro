@@ -3,9 +3,21 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { getCollection, render } from "astro:content";
 
-const carts = (await getCollection("studiocarts")).sort(
+const entries = (await getCollection("studiocarts")).sort(
   (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
 );
+const cartsOrder = (await getCollection("ordering")).find(
+  (entry) => entry.id === "studiocarts-order",
+);
+const cartsOrderIds = cartsOrder?.data.items.map((item) =>
+  typeof item === "string" ? item : item.entry,
+) || [];
+const carts = cartsOrder
+  ? cartsOrderIds
+      .map((id) => entries.find((entry) => entry.id === id))
+      .filter((entry): entry is (typeof entries)[number] => Boolean(entry))
+      .concat(entries.filter((entry) => !cartsOrderIds.includes(entry.id)))
+  : entries;
 ---
 
 <Layout

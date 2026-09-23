@@ -5,9 +5,21 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { getCollection } from "astro:content";
 
-const projects = (await getCollection("portfolio")).sort(
+const entries = (await getCollection("portfolio")).sort(
   (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
 );
+const portfolioOrder = (await getCollection("ordering")).find(
+  (entry) => entry.id === "portfolio-order",
+);
+const portfolioOrderIds = portfolioOrder?.data.items.map((item) =>
+  typeof item === "string" ? item : item.entry,
+) || [];
+const projects = portfolioOrder
+  ? portfolioOrderIds
+      .map((id) => entries.find((entry) => entry.id === id))
+      .filter((entry): entry is (typeof entries)[number] => Boolean(entry))
+      .concat(entries.filter((entry) => !portfolioOrderIds.includes(entry.id)))
+  : entries;
 ---
 
 <Layout

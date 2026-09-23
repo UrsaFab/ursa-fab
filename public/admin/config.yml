@@ -30,6 +30,42 @@ collections:
             max_files: 50
       - { label: Description, name: description, widget: markdown }
 
+  - name: ordering
+    label: Display order
+    files:
+      - label: Portfolio order
+        name: portfolio_order
+        file: src/content/portfolio-order.yml
+        fields:
+          - label: Portfolio entries
+            name: items
+            widget: list
+            summary: "{{fields.entry}}"
+            field:
+              label: Entry
+              name: entry
+              widget: relation
+              collection: portfolio
+              value_field: "{{slug}}"
+              search_fields: ["title"]
+              display_fields: ["title"]
+      - label: Studio-cart order
+        name: studiocarts_order
+        file: src/content/studiocarts-order.yml
+        fields:
+          - label: Studio-cart entries
+            name: items
+            widget: list
+            summary: "{{fields.entry}}"
+            field:
+              label: Entry
+              name: entry
+              widget: relation
+              collection: studiocarts
+              value_field: "{{slug}}"
+              search_fields: ["title"]
+              display_fields: ["title"]
+
   - name: studiocarts
     label: Studio carts
     folder: src/content/studiocarts

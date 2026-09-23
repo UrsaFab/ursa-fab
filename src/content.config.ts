@@ -26,4 +26,13 @@ const studiocarts = defineCollection({
   }),
 });
 
-export const collections = { portfolio, studiocarts };
+const ordering = defineCollection({
+  loader: glob({ pattern: "*-order.yml", base: "./src/content" }),
+  schema: z.object({
+    items: z.array(
+      z.union([z.string(), z.object({ entry: z.string() })]),
+    ).default([]),
+  }),
+});
+
+export const collections = { portfolio, studiocarts, ordering };

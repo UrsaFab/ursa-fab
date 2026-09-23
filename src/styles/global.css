@@ -741,7 +741,7 @@ body.menu-open {
   margin-top: 88px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 56px 32px;
+  gap: 112px 64px;
 }
 
 .portfolio-item {
@@ -849,7 +849,7 @@ body.menu-open {
   .portfolio-grid {
     margin-top: 56px;
     grid-template-columns: 1fr;
-    gap: 44px;
+    gap: 88px;
   }
 
   .portfolio-item figcaption {
