@@ -1,7 +1,7 @@
 ---
 order: 1
 title: Euro Crate Cart - 2 x 2lg 1sm
-price: 1110
+price: 1095
 thumbnail: /uploads/crate-2-x-l2-s1.png
 gallery:
   - /uploads/crate-2-x-l2-s1.png
