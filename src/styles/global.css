@@ -1115,17 +1115,9 @@ body.menu-open {
   font-style: italic;
 }
 
-.studio-cart-card-caption span:last-child {
-  font-size: 13px;
-}
-
 @media (max-width: 600px) {
   .studio-cart-card-caption span:first-child {
     font-size: 18px;
-  }
-
-  .studio-cart-card-caption span:last-child {
-    font-size: 12px;
   }
 }
 
