@@ -1015,7 +1015,7 @@ body.menu-open {
   margin-top: 1rem;
   color: var(--grey);
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 2;
   white-space: pre-line;
 }
 
@@ -1111,7 +1111,7 @@ body.menu-open {
 .studio-cart-card-caption span:first-child {
   color: var(--white);
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 23px;
+  font-size: 21px;
   font-style: italic;
 }
 
@@ -1121,7 +1121,7 @@ body.menu-open {
 
 @media (max-width: 600px) {
   .studio-cart-card-caption span:first-child {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .studio-cart-card-caption span:last-child {
@@ -1137,6 +1137,9 @@ body.menu-open {
 .studio-cart-modal .studio-cart-description {
   width: min(650px, 100%);
   margin-top: 16px;
+  font-size: 15px;
+  line-height: 2;
+  white-space: pre-line;
 }
 
 .studio-cart-gallery {
@@ -1157,7 +1160,7 @@ body.menu-open {
   width: min(620px, 100%);
   margin-top: 16px;
   color: var(--grey);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 300;
   line-height: 1.8;
 }
