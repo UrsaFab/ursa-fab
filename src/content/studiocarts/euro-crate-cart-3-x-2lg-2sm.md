@@ -12,5 +12,7 @@ description: >-
 
   Weight: 34kg approx. (without boxes)  
 
-  Dimensions: 1620h x 620w x 1400d
+  Dimensions: 1620h x 620w x 1400d  
+
+  Supplied with x2 fixed and x2 swivel/locking heavy-duty pneumatic castors
 ---
