@@ -6,6 +6,7 @@ const imagePath = z.string().min(1);
 const portfolio = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/portfolio" }),
   schema: z.object({
+    order: z.number().int().positive().default(1),
     title: z.string(),
     summary: z.string(),
     description: z.string().default(""),
@@ -16,6 +17,7 @@ const portfolio = defineCollection({
 const studiocarts = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/studiocarts" }),
   schema: z.object({
+    order: z.number().int().positive().default(1),
     title: z.string(),
     price: z.number().nonnegative(),
     thumbnail: imagePath,

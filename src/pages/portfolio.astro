@@ -5,7 +5,9 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { getCollection } from "astro:content";
 
-const projects = await getCollection("portfolio");
+const projects = (await getCollection("portfolio")).sort(
+  (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
+);
 ---
 
 <Layout

@@ -18,12 +18,16 @@ collections:
     extension: md
     format: frontmatter
     fields:
+      - { label: Display order, name: order, widget: number, value_type: int, min: 1, default: 1, hint: "Lower numbers appear first." }
       - { label: Title, name: title, widget: string }
       - { label: Summary, name: summary, widget: text }
       - label: Gallery images
         name: images
-        widget: list
-        field: { label: Image, name: image, widget: image }
+        widget: image
+        media_library:
+          config:
+            multiple: true
+            max_files: 50
       - { label: Description, name: description, widget: markdown }
 
   - name: studiocarts
@@ -33,11 +37,15 @@ collections:
     extension: md
     format: frontmatter
     fields:
+      - { label: Display order, name: order, widget: number, value_type: int, min: 1, default: 1, hint: "Lower numbers appear first." }
       - { label: Title, name: title, widget: string }
       - { label: Price, name: price, widget: number, value_type: int, min: 0 }
       - { label: Thumbnail, name: thumbnail, widget: image }
       - label: Gallery
         name: gallery
-        widget: list
-        field: { label: Image, name: image, widget: image }
+        widget: image
+        media_library:
+          config:
+            multiple: true
+            max_files: 50
       - { label: Description, name: description, widget: markdown }

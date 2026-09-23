@@ -3,7 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { getCollection, render } from "astro:content";
 
-const carts = await getCollection("studiocarts");
+const carts = (await getCollection("studiocarts")).sort(
+  (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
+);
 ---
 
 <Layout
