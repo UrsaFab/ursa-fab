@@ -19,5 +19,5 @@ description: >-
   Discounts on pairs at £330. 
 
 
-  Custom sizes available, [send us a message.](mailto:info@ursafab.co.uk)
+  Custom sizes available, send us a message.
 ---
