@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 title: Combo Stand Barrow
 price: 725
 thumbnail: /uploads/stand-barrow.png
