@@ -6,7 +6,6 @@ summary: ""
 thumbnail: /uploads/pxl_20261109_162818585.jpg
 gallery:
   - /uploads/pxl_20261109_162818585.jpg
-  - /uploads/8x4-frame-1.png
 dimensions: 2440 x 1220 (+195 per spigot)
 materials: Aluminium
 leadTime: 1 week
